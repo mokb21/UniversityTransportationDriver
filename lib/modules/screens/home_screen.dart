@@ -5,6 +5,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/io_client.dart';
 import 'package:signalr_core/signalr_core.dart';
 import 'package:university_transportation_driver/constants/api_path.dart';
+import 'package:university_transportation_driver/modules/models/login_model_web.dart';
+import 'package:university_transportation_driver/utils/preferences/shared_preferences_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String _userName = '';
   double _latitude = 0.0;
   double _longitude = 0.0;
 
@@ -37,10 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void _assignHubFunction() {
     if (_connection.state == HubConnectionState.connected)
       _connection.on('ShowPointsOnMap', (message) {
-        if (message != null && message.length == 2) {
+        if (message != null && message.length == 4) {
           setState(() {
-            _latitude = message[0];
-            _longitude = message[1];
+            _userName = message[1];
+            _latitude = message[2];
+            _longitude = message[3];
           });
         }
       });
@@ -49,8 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _invokeHubSendLocation() async {
     if (_connection.state == HubConnectionState.connected) {
       Position currentPosition = await _determinePosition();
-      await _connection.invoke('SendGPSPoint',
-          args: [currentPosition.altitude, currentPosition.longitude]);
+      LoginModelWeb model = await SharedPreferencesHelper.getCurrentUser();
+
+      await _connection.invoke('SendGPSPoint', args: [
+        model.user.id,
+        currentPosition.altitude,
+        currentPosition.longitude
+      ]);
     }
   }
 
@@ -97,6 +106,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             Text(
               'Sever Said:',
+            ),
+             Text(
+              'user: $_userName',
+              style: Theme.of(context).textTheme.headline6,
             ),
             Text(
               'latitude: $_latitude',

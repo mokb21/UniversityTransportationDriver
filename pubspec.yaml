@@ -33,11 +33,17 @@ dependencies:
   signalr_core: ^1.1.1
   geolocator: ^7.0.3
   shared_preferences: ^2.0.5
+  flutter_map: ^0.12.0
 
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+# for error check this
+dependency_overrides:
+  tuple: ^2.0.0
+  logging: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

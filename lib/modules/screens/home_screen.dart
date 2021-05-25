@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/io_client.dart';
 import 'package:signalr_core/signalr_core.dart';
@@ -16,11 +18,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _userName = '';
-  double _latitude = 0.0;
-  double _longitude = 0.0;
-
+  LatLng _currentLocation;
+  MapController _mapController;
   HubConnection _connection;
+  LoginModelWeb _model;
 
   Future<void> _connectTrackingHub() async {
     _connection = HubConnectionBuilder()
@@ -38,26 +39,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _assignHubFunction() {
-    if (_connection.state == HubConnectionState.connected)
+    if (_connection.state == HubConnectionState.connected) {
       _connection.on('ShowPointsOnMap', (message) {
         if (message != null && message.length == 4) {
-          setState(() {
-            _userName = message[1];
-            _latitude = message[2];
-            _longitude = message[3];
-          });
+          if (_model.user.userName.toLowerCase() ==
+              message[1].toString().toLowerCase()) {
+            setState(() {
+              _currentLocation = LatLng(message[2], message[3]);
+            });
+          }
         }
       });
+    }
   }
 
   Future<void> _invokeHubSendLocation() async {
     if (_connection.state == HubConnectionState.connected) {
       Position currentPosition = await _determinePosition();
-      LoginModelWeb model = await SharedPreferencesHelper.getCurrentUser();
+      if (Position != null)
+        setState(() {
+          _currentLocation =
+              LatLng(currentPosition.latitude, currentPosition.longitude);
+          _mapController.move(_currentLocation, 13.0);
+        });
 
       await _connection.invoke('SendGPSPoint', args: [
-        model.user.id,
-        currentPosition.altitude,
+        _model.user.id,
+        currentPosition.latitude,
         currentPosition.longitude
       ]);
     }
@@ -88,10 +96,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return await Geolocator.getCurrentPosition();
   }
 
+  Future<void> initWidgetProperties() async {
+    _mapController = MapController();
+    _currentLocation = LatLng(0.0, 0.0);
+    _model = await SharedPreferencesHelper.getCurrentUser();
+
+    _connectTrackingHub();
+  }
+
   @override
   void initState() {
     super.initState();
-    _connectTrackingHub();
+    initWidgetProperties();
   }
 
   @override
@@ -100,27 +116,33 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('University Transportation Driver'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Sever Said:',
-            ),
-             Text(
-              'user: $_userName',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            Text(
-              'latitude: $_latitude',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            Text(
-              'longitude: $_longitude',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ],
+      body: FlutterMap(
+        mapController: _mapController,
+        options: MapOptions(
+          center: _currentLocation,
+          zoom: 13.0,
         ),
+        layers: [
+          TileLayerOptions(
+              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              subdomains: ['a', 'b', 'c']),
+          MarkerLayerOptions(
+            markers: [
+              Marker(
+                width: 80.0,
+                height: 80.0,
+                point: _currentLocation,
+                builder: (ctx) => Container(
+                  child: Icon(
+                    Icons.location_on,
+                    color: Colors.red,
+                    size: 40.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _invokeHubSendLocation,

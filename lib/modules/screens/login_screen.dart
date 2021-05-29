@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final LoginService _loginService = new LoginServiceWeb();
   LoginModel _model = new LoginModel();
+  bool _isHidden = true;
 
   Future<void> _loginPressed() async {
     _formKey.currentState.save();
@@ -28,6 +29,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Navigator.pushReplacementNamed(context, RoutingConstants.HomeScreenRoute);
     }
+  }
+
+  _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 
   @override
@@ -70,8 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Password',
+                    suffix: InkWell(
+                      onTap: _togglePasswordView,
+                      child: Icon(
+                        _isHidden ? Icons.visibility : Icons.visibility_off,
+                      ),
+                    ),
                   ),
-                  obscureText: true,
+                  obscureText: _isHidden,
                   keyboardType: TextInputType.visiblePassword,
                   onSaved: (String value) {
                     setState(() {

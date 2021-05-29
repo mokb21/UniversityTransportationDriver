@@ -34,22 +34,20 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Login Page"),
-      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 60.0),
+                padding: const EdgeInsets.only(top: 120.0),
                 child: Center(
                   child: Container(
                     width: 200,
                     height: 150,
-                    // child: Image.asset('asset/images/flutter-logo.png'),
-                    child: Text('Hello'),
+                    child: FlutterLogo(
+                      size: 30.0,
+                    ),
                   ),
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_transportation_driver/constants/routing_constants.dart';
-import 'package:university_transportation_driver/utils/helpers/router.dart'
+import 'package:university_transportation_driver/config/routes/router.dart'
     as router;
 
 void main() {

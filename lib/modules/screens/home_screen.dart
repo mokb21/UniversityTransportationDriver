@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/modules/screens/journeys_screen.dart';
 import 'package:university_transportation_driver/modules/screens/map_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,10 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _widgetOptions = <Widget>[
     MapScreen(),
-    Text(
-      'Journyes',
-      style: optionStyle,
-    ),
+    JourneysScreen(),
     Text(
       'Profile',
       style: optionStyle,

@@ -38,7 +38,7 @@ class _MapScreenState extends State<MapScreen> {
     _assignHubFunction();
   }
 
-  void _assignHubFunction() {
+  _assignHubFunction() {
     if (_connection.state == HubConnectionState.connected) {
       _connection.on('ShowPointsOnMap', (message) {
         if (message != null && message.length == 4) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_transportation_driver/constants/routing_constants.dart';
 import 'package:university_transportation_driver/modules/screens/home_screen.dart';
+import 'package:university_transportation_driver/modules/screens/journeys_screen.dart';
 import 'package:university_transportation_driver/modules/screens/login_screen.dart';
 import 'package:university_transportation_driver/modules/screens/map_screen.dart';
 
@@ -12,6 +13,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => LoginScreen());
     case RoutingConstants.MapScreenRoute:
       return MaterialPageRoute(builder: (context) => MapScreen());
+      case RoutingConstants.JourneysScreenRoute:
+      return MaterialPageRoute(builder: (context) => JourneysScreen());
     default:
       return MaterialPageRoute(builder: (context) => LoginScreen());
   }

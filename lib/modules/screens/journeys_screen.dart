@@ -3,6 +3,7 @@ import 'package:university_transportation_driver/modules/models/journey_model.da
 import 'package:university_transportation_driver/utils/preferences/shared_preferences_helper.dart';
 import 'package:university_transportation_driver/utils/services/journey/journey_service.dart';
 import 'package:university_transportation_driver/utils/services/journey/journey_service_web.dart';
+import 'package:university_transportation_driver/widgets/loader.dart';
 
 class JourneysScreen extends StatefulWidget {
   JourneysScreen({Key key}) : super(key: key);
@@ -15,13 +16,19 @@ class _JourneysScreenState extends State<JourneysScreen> {
   final JourneyService _journeyService = new JourneyServiceWeb();
   List<JourneyModel> _journeys = <JourneyModel>[];
 
+  bool _isLoading = false;
+
   initWidgetProperties() async {
+    setState(() {
+      _isLoading = true;
+    });
     final loginModel = await SharedPreferencesHelper.getCurrentUser();
     final userId = loginModel.user.id;
 
     var journeys = await _journeyService.getJourneysByDriverIdAsync(userId);
     setState(() {
       _journeys = journeys;
+      _isLoading = false;
     });
   }
 
@@ -33,18 +40,27 @@ class _JourneysScreenState extends State<JourneysScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _journeys.length,
-      itemBuilder: (BuildContext ctxt, int i) {
-        return new Card(
-          child: Column(
-            children: [
-              Text(_journeys[i].name),
-              Text(_journeys[i].startDate),
-            ],
-          ),
-        );
-      },
+    return Stack(
+      children: [
+        ListView.builder(
+          itemCount: _journeys.length,
+          itemBuilder: (BuildContext ctxt, int i) {
+            return Card(
+              child: ListTile(
+                leading: Icon(
+                  Icons.timeline_sharp,
+                  color: Colors.blue,
+                  size: 45.0,
+                ),
+                title: Text(_journeys[i].name),
+                subtitle: Text(_journeys[i].startDate),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ),
+            );
+          },
+        ),
+        _isLoading ? Loader() : Stack()
+      ],
     );
   }
 }

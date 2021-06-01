@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_transportation_driver/modules/screens/journeys_screen.dart';
 import 'package:university_transportation_driver/modules/screens/map_screen.dart';
+import 'package:university_transportation_driver/modules/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -11,16 +12,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   List<Widget> _widgetOptions = <Widget>[
     MapScreen(),
     JourneysScreen(),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

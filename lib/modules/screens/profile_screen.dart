@@ -16,6 +16,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     user: User(
       id: '',
       userName: '',
+      email: '',
+      phone: '',
     ),
   );
 
@@ -74,7 +76,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20.0),
-                      child: Text(_loginModel.user.id),
+                      child: Text(_loginModel.user.email),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text(_loginModel.user.phone),
                     ),
                     Divider(),
                     ListTile(

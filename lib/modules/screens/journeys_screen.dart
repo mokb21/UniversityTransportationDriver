@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/constants/routing_constants.dart';
 import 'package:university_transportation_driver/modules/models/journey_model.dart';
 import 'package:university_transportation_driver/utils/preferences/shared_preferences_helper.dart';
 import 'package:university_transportation_driver/utils/services/journey/journey_service.dart';
@@ -55,6 +56,11 @@ class _JourneysScreenState extends State<JourneysScreen> {
                 title: Text(_journeys[i].name),
                 subtitle: Text(_journeys[i].startDate),
                 trailing: Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, RoutingConstants.JourneyDetailsScreenRoute,
+                      arguments: _journeys[i].id);
+                },
               ),
             );
           },

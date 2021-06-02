@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class _MapScreenState extends State<MapScreen> {
   MapController _mapController;
   HubConnection _connection;
   LoginModelWeb _model;
+  bool _isTrackingActive = false;
+  Timer _timer;
 
   Future<void> _connectTrackingHub() async {
     _connection = HubConnectionBuilder()
@@ -51,6 +54,18 @@ class _MapScreenState extends State<MapScreen> {
         }
       });
     }
+  }
+
+  Future<void> _startEndTracking() async {
+    setState(() {
+      _isTrackingActive = !_isTrackingActive;
+    });
+
+    if (_isTrackingActive)
+      _timer = Timer.periodic(
+          Duration(seconds: 10), (Timer t) => _invokeHubSendLocation());
+    else
+      _timer.cancel();
   }
 
   Future<void> _invokeHubSendLocation() async {
@@ -100,7 +115,6 @@ class _MapScreenState extends State<MapScreen> {
     _mapController = MapController();
     _currentLocation = LatLng(0.0, 0.0);
     _model = await SharedPreferencesHelper.getCurrentUser();
-
     _connectTrackingHub();
   }
 
@@ -108,6 +122,13 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     initWidgetProperties();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    if (_timer != null) _timer.cancel();
   }
 
   @override
@@ -142,9 +163,11 @@ class _MapScreenState extends State<MapScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _invokeHubSendLocation,
+        onPressed: _startEndTracking,
         tooltip: 'Send Location',
-        child: Icon(Icons.location_on),
+        child:
+            Icon(_isTrackingActive ? Icons.location_off : Icons.location_on),
+        backgroundColor: _isTrackingActive ? Colors.red : Colors.blue,
       ),
     );
   }

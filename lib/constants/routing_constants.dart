@@ -4,4 +4,5 @@ class RoutingConstants {
   static const String MapScreenRoute = 'Map';
   static const String JourneysScreenRoute = 'Journeys';
   static const String ProfileScreenRoute = 'Profile';
+  static const String JourneyDetailsScreenRoute = 'JourneyDetails';
 }

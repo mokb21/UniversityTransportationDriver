@@ -33,4 +33,29 @@ class JourneyServiceWeb extends JourneyService {
       throw Exception('Oops Somthing went wrong');
     }
   }
+
+  @override
+  Future<JourneyModel> getJourneyByIdAsync(String id) async {
+    try {
+      final loginModel = await SharedPreferencesHelper.getCurrentUser();
+      final token = loginModel.token.token;
+
+      final http.Response response = await http.get(
+        Uri.http(ApiPath.DomainPath, '/api/Journeys/Get', {"Id": id}),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map parsed = json.decode(response.body);
+        return JourneyModel.fromJson(parsed);
+      }
+      return null;
+    } on Exception catch (_) {
+      throw Exception('Oops Somthing went wrong');
+    }
+  }
 }

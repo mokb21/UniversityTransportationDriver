@@ -1,4 +1,4 @@
 class ApiPath {
-  static const String DomainURI = 'http://kabanisenior-001-site1.gtempurl.com';
-  static const String DomainPath = 'kabanisenior-001-site1.gtempurl.com';
+  static const String DomainURI = 'http://kabbanisenior-001-site1.htempurl.com';
+  static const String DomainPath = 'kabbanisenior-001-site1.htempurl.com';
 }

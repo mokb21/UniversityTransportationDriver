@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/modules/models/journey_model.dart';
 
-class JourneyBasicDetails extends StatelessWidget {
+// ignore: must_be_immutable
+class JourneyBasicDetails extends StatefulWidget {
+  JourneyModel journeyModel;
+  JourneyBasicDetails({Key key, this.journeyModel}) : super(key: key);
+
+  @override
+  _JourneyBasicDetailsState createState() => _JourneyBasicDetailsState();
+}
+
+class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -17,20 +27,25 @@ class JourneyBasicDetails extends StatelessWidget {
               children: [
                 SizedBox(height: 30.0),
                 Text(
-                  'Journey Name',
+                  widget.journeyModel.name,
                   style: TextStyle(
                     fontSize: 40.0,
                     color: Colors.blue,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Text('Email@email.com'),
+                  padding: EdgeInsets.only(left: 20.0, top: 5.0),
+                  child: Text(widget.journeyModel.repeatDays),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Text('test'),
-                )
+                  padding: EdgeInsets.only(left: 20.0, top: 5.0),
+                  child: Text('Start: ' + widget.journeyModel.startDate),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.0, top: 5.0),
+                  child: Text('End: ' + widget.journeyModel.endDate),
+                ),
+                SizedBox(height: 20.0),
               ],
             ),
           ),

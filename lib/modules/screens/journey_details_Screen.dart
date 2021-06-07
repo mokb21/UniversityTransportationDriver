@@ -4,6 +4,7 @@ import 'package:university_transportation_driver/utils/services/journey/journey_
 import 'package:university_transportation_driver/utils/services/journey/journey_service_web.dart';
 import 'package:university_transportation_driver/widgets/journey_basic_details.dart';
 import 'package:university_transportation_driver/widgets/journey_stations_list.dart';
+import 'package:university_transportation_driver/widgets/journey_stations_map.dart';
 import 'package:university_transportation_driver/widgets/loader.dart';
 
 class JourneyDetailsScreen extends StatefulWidget {
@@ -65,11 +66,12 @@ class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
                 tabs: _tabs,
               ),
             ),
-            body: TabBarView(children: [
+            body:
+                TabBarView(physics: NeverScrollableScrollPhysics(), children: [
               JourneyBasicDetails(journeyModel: this._journey),
               Icon(Icons.person),
               JourneyStationsList(journeyId: this._journey.id),
-              Icon(Icons.map),
+              JourneyStationMap(journeyId: this._journey.id),
             ]),
           ),
           _isLoading ? Loader() : Stack(),

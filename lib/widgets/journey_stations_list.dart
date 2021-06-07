@@ -25,7 +25,7 @@ class _JourneyStationsListState extends State<JourneyStationsList> {
       _isLoading = true;
     });
 
-    var stations =
+    List<DetailedJourneyStationModel> stations =
         await _stationService.getStationsByJourneyIdAsync(widget.journeyId);
 
     setState(() {

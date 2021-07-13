@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/config/themes/theme_constants.dart';
+import 'package:university_transportation_driver/constants/assets_path.dart';
 import 'package:university_transportation_driver/constants/routing_constants.dart';
 import 'package:university_transportation_driver/modules/models/login_model.dart';
 import 'package:university_transportation_driver/utils/preferences/shared_preferences_helper.dart';
@@ -56,13 +58,15 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: 120.0),
+                    padding: const EdgeInsets.only(top: 150.0, bottom: 20.0),
                     child: Center(
                       child: Container(
-                        width: 200,
-                        height: 150,
-                        child: FlutterLogo(
-                          size: 30.0,
+                        width: 400,
+                        height: 170,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(AssetsPath.LogoPath),
+                              fit: BoxFit.fill),
                         ),
                       ),
                     ),
@@ -109,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     width: 250,
                     decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: ThemeConstants.PrimaryColor,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextButton(
                       // onPressed: () {

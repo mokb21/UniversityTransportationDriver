@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/config/themes/theme_constants.dart';
 import 'package:university_transportation_driver/constants/routing_constants.dart';
 import 'package:university_transportation_driver/modules/models/login_model_web.dart';
 import 'package:university_transportation_driver/utils/preferences/shared_preferences_helper.dart';
@@ -71,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       _loginModel.user.userName,
                       style: TextStyle(
                         fontSize: 40.0,
-                        color: Colors.blue,
+                        color: ThemeConstants.PrimaryColor,
                       ),
                     ),
                     Padding(
@@ -86,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.info_outline,
-                        color: Colors.blue,
+                        color: ThemeConstants.PrimaryColor,
                         size: 25.0,
                       ),
                       title: Text('About'),
@@ -95,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.logout,
-                        color: Colors.blue,
+                        color: ThemeConstants.PrimaryColor,
                         size: 25.0,
                       ),
                       title: Text('Logout'),

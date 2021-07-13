@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/config/themes/theme_constants.dart';
 import 'package:university_transportation_driver/modules/models/detailed_journey_station_model.dart';
 import 'package:university_transportation_driver/utils/services/station/station_service.dart';
 import 'package:university_transportation_driver/utils/services/station/station_service_web.dart';
@@ -51,7 +52,7 @@ class _JourneyStationsListState extends State<JourneyStationsList> {
               child: ListTile(
                 leading: Icon(
                   Icons.location_on,
-                  color: Colors.blue,
+                  color: ThemeConstants.PrimaryColor,
                   size: 45.0,
                 ),
                 title: Text(_stations[i].name),

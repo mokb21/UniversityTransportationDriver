@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:university_transportation_driver/config/themes/theme_constants.dart';
 
 class Loader extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class Loader extends StatelessWidget {
           opacity: 0.3,
           child: const ModalBarrier(dismissible: false, color: Colors.black),
         ),
-        SpinKitDualRing(color: Colors.blue)
+        SpinKitDualRing(color: ThemeConstants.PrimaryColor)
       ],
     );
   }

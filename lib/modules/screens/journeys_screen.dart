@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/config/themes/theme_constants.dart';
 import 'package:university_transportation_driver/constants/routing_constants.dart';
 import 'package:university_transportation_driver/modules/models/journey_model.dart';
 import 'package:university_transportation_driver/utils/preferences/shared_preferences_helper.dart';
@@ -50,7 +51,7 @@ class _JourneysScreenState extends State<JourneysScreen> {
               child: ListTile(
                 leading: Icon(
                   Icons.timeline_sharp,
-                  color: Colors.blue,
+                  color: ThemeConstants.PrimaryColor,
                   size: 45.0,
                 ),
                 title: Text(_journeys[i].name),

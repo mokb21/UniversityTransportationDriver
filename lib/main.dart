@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'University Transportation Driver',
       onGenerateRoute: router.generateRoute,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
       ),
       initialRoute: isLoggedIn
           ? RoutingConstants.HomeScreenRoute

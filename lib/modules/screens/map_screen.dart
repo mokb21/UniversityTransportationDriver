@@ -7,6 +7,7 @@ import 'package:latlong/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/io_client.dart';
 import 'package:signalr_core/signalr_core.dart';
+import 'package:university_transportation_driver/config/themes/theme_constants.dart';
 import 'package:university_transportation_driver/constants/api_path.dart';
 import 'package:university_transportation_driver/modules/models/login_model_web.dart';
 import 'package:university_transportation_driver/utils/preferences/shared_preferences_helper.dart';
@@ -167,7 +168,7 @@ class _MapScreenState extends State<MapScreen> {
         tooltip: 'Send Location',
         child:
             Icon(_isTrackingActive ? Icons.location_off : Icons.location_on),
-        backgroundColor: _isTrackingActive ? Colors.red : Colors.blue,
+        backgroundColor: _isTrackingActive ? Colors.red : ThemeConstants.PrimaryColor,
       ),
     );
   }

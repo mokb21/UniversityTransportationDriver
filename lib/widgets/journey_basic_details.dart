@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_transportation_driver/config/themes/theme_constants.dart';
 import 'package:university_transportation_driver/modules/models/journey_model.dart';
 
 // ignore: must_be_immutable
@@ -30,7 +31,7 @@ class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
                   widget.journeyModel.name,
                   style: TextStyle(
                     fontSize: 40.0,
-                    color: Colors.blue,
+                    color: ThemeConstants.PrimaryColor,
                   ),
                 ),
                 Padding(

@@ -47,6 +47,9 @@ class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
     initWidgetProperties();
   }
 
+  Future<void> _scanQR() async {
+  }
+
   @override
   Widget build(BuildContext context) {
     final _tabs = [
@@ -66,6 +69,12 @@ class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
               bottom: TabBar(
                 tabs: _tabs,
               ),
+              actions: [
+                IconButton(
+                    icon: const Icon(Icons.qr_code_scanner_rounded),
+                    tooltip: 'Scan QR',
+                    onPressed: _scanQR),
+              ],
             ),
             body:
                 TabBarView(physics: NeverScrollableScrollPhysics(), children: [

@@ -56,7 +56,7 @@ class _JourneyStationsListState extends State<JourneyStationsList> {
                   size: 45.0,
                 ),
                 title: Text(_stations[i].name),
-                subtitle: Text(_stations[i].arrivalDate),
+                subtitle: Text(_stations[i].arrivalDate.split('T')[1]),
               ),
             );
           },

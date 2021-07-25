@@ -55,6 +55,32 @@ class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
                       Text('End: ' + widget.journeyModel.endDate.split('T')[1]),
                 ),
                 SizedBox(height: 20.0),
+                Center(
+                  child: TextButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      primary: widget.journeyModel.isStarted
+                          ? Colors.red
+                          : ThemeConstants.PrimaryColor,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.journeyModel.isStarted =
+                            !widget.journeyModel.isStarted;
+                      });
+                    },
+                    child: Text(
+                      widget.journeyModel.isStarted
+                          ? 'Stop Journey'
+                          : 'Start Journey',
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
               ],
             ),
           ),

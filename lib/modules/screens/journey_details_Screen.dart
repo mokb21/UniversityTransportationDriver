@@ -21,8 +21,8 @@ class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
   JourneyModel _journey = JourneyModel(
     name: '',
     repeatDays: '',
-    startDate: '',
-    endDate: '',
+    startDate: 'T',
+    endDate: 'T',
   );
 
   bool _isLoading = false;

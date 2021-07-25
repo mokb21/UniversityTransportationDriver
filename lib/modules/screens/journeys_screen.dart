@@ -55,7 +55,7 @@ class _JourneysScreenState extends State<JourneysScreen> {
                   size: 45.0,
                 ),
                 title: Text(_journeys[i].name),
-                subtitle: Text(_journeys[i].startDate),
+                subtitle: Text(_journeys[i].startDate.split('T')[1]),
                 trailing: Icon(Icons.arrow_forward_ios),
                 onTap: () {
                   Navigator.pushNamed(

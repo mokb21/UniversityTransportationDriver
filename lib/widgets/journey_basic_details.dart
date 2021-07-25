@@ -36,15 +36,23 @@ class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20.0, top: 5.0),
-                  child: Text(widget.journeyModel.repeatDays),
+                  child: Chip(
+                    padding: EdgeInsets.all(0),
+                    backgroundColor: ThemeConstants.PrimaryColor,
+                    label: Text(
+                        getJourneyRepeatDays(widget.journeyModel.repeatDays),
+                        style: TextStyle(color: Colors.white)),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20.0, top: 5.0),
-                  child: Text('Start: ' + widget.journeyModel.startDate),
+                  child: Text(
+                      'Start: ' + widget.journeyModel.startDate.split('T')[1]),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20.0, top: 5.0),
-                  child: Text('End: ' + widget.journeyModel.endDate),
+                  child:
+                      Text('End: ' + widget.journeyModel.endDate.split('T')[1]),
                 ),
                 SizedBox(height: 20.0),
               ],
@@ -53,5 +61,42 @@ class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
         ),
       ),
     );
+  }
+
+  String getJourneyRepeatDays(String value) {
+    if (value == null) return 'Not Repeatable';
+
+    String repeatDays = '';
+    List<String> valuesList = value.split(',');
+
+    for (var i = 0; i < valuesList.length; i++) {
+      if (i > 0) repeatDays += ', ';
+
+      switch (int.parse(valuesList[i])) {
+        case 0:
+          repeatDays += 'SA';
+          break;
+        case 1:
+          repeatDays += 'SU';
+          break;
+        case 2:
+          repeatDays += 'MO';
+          break;
+        case 3:
+          repeatDays += 'TU';
+          break;
+        case 4:
+          repeatDays += 'WE';
+          break;
+        case 5:
+          repeatDays += 'TH';
+          break;
+        case 6:
+          repeatDays += 'FR';
+          break;
+      }
+    }
+
+    return repeatDays;
   }
 }

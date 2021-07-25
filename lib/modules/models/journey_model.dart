@@ -8,6 +8,7 @@ class JourneyModel {
   bool isAdditional;
   bool isRequestable;
   bool isRepeatable;
+  bool isStarted;
   String repeatDays;
   String driverId;
   List<JourneyStations> journeyStations;
@@ -22,6 +23,7 @@ class JourneyModel {
       this.isAdditional,
       this.isRequestable,
       this.isRepeatable,
+      this.isStarted,
       this.repeatDays,
       this.driverId,
       this.journeyStations});
@@ -36,6 +38,7 @@ class JourneyModel {
     isAdditional = json['isAdditional'];
     isRequestable = json['isRequestable'];
     isRepeatable = json['isRepeatable'];
+    isStarted = json['isStarted'];
     repeatDays = json['repeatDays'];
     driverId = json['driverId'];
     if (json['journeyStations'] != null) {
@@ -57,6 +60,7 @@ class JourneyModel {
     data['isAdditional'] = this.isAdditional;
     data['isRequestable'] = this.isRequestable;
     data['isRepeatable'] = this.isRepeatable;
+    data['isStarted'] = this.isStarted;
     data['repeatDays'] = this.repeatDays;
     data['driverId'] = this.driverId;
     if (this.journeyStations != null) {

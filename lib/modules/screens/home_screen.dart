@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Maps',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.reorder_outlined),
+            icon: Icon(Icons.timeline_sharp),
             label: 'Journeys',
           ),
           BottomNavigationBarItem(

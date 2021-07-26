@@ -40,7 +40,7 @@ class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
                     padding: EdgeInsets.all(0),
                     backgroundColor: ThemeConstants.PrimaryColor,
                     label: Text(
-                        getJourneyRepeatDays(widget.journeyModel.repeatDays),
+                        _getJourneyRepeatDays(widget.journeyModel.repeatDays),
                         style: TextStyle(color: Colors.white)),
                   ),
                 ),
@@ -89,7 +89,7 @@ class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
     );
   }
 
-  String getJourneyRepeatDays(String value) {
+  String _getJourneyRepeatDays(String value) {
     if (value == null) return 'Not Repeatable';
 
     String repeatDays = '';

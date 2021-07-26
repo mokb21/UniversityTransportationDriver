@@ -7,6 +7,7 @@ import 'package:university_transportation_driver/widgets/journey_passengers_list
 import 'package:university_transportation_driver/widgets/journey_stations_list.dart';
 import 'package:university_transportation_driver/widgets/journey_stations_map.dart';
 import 'package:university_transportation_driver/widgets/loader.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 class JourneyDetailsScreen extends StatefulWidget {
   final String journeyId;
@@ -21,9 +22,10 @@ class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
   final JourneyService _journeyService = new JourneyServiceWeb();
   JourneyModel _journey = JourneyModel(
     name: '',
-    repeatDays: '',
+    repeatDays: '1,2,3,4,5,6,7',
     startDate: 'T',
     endDate: 'T',
+    isStarted: false,
   );
 
   bool _isLoading = false;
@@ -48,6 +50,7 @@ class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
   }
 
   Future<void> _scanQR() async {
+    String cameraScanResult = await scanner.scan();
   }
 
   @override

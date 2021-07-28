@@ -30,7 +30,7 @@ class _JourneyStationsListState extends State<JourneyStationsList> {
         await _stationService.getStationsByJourneyIdAsync(widget.journeyId);
 
     setState(() {
-      _stations = stations;
+      if (stations != null) _stations = stations;
       _isLoading = false;
     });
   }

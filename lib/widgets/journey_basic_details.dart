@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:university_transportation_driver/config/themes/theme_constants.dart';
 import 'package:university_transportation_driver/modules/models/journey_model.dart';
+import 'package:university_transportation_driver/modules/models/trip_model.dart';
+import 'package:university_transportation_driver/utils/services/trip/trip_service.dart';
+import 'package:university_transportation_driver/utils/services/trip/trip_service_web.dart';
 
 // ignore: must_be_immutable
 class JourneyBasicDetails extends StatefulWidget {
@@ -12,6 +15,22 @@ class JourneyBasicDetails extends StatefulWidget {
 }
 
 class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
+  final TripService _tripService = new TripServiceWeb();
+
+  _startEndPressed() async {
+    TripModel trip;
+
+    if (widget.journeyModel.isStarted)
+      trip = await _tripService.endTrip(widget.journeyModel.id);
+    else
+      trip = await _tripService.startTrip(widget.journeyModel.id);
+
+    if (trip != null)
+      setState(() {
+        widget.journeyModel.isStarted = !widget.journeyModel.isStarted;
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -63,12 +82,7 @@ class _JourneyBasicDetailsState extends State<JourneyBasicDetails> {
                           ? Colors.red
                           : ThemeConstants.PrimaryColor,
                     ),
-                    onPressed: () {
-                      setState(() {
-                        widget.journeyModel.isStarted =
-                            !widget.journeyModel.isStarted;
-                      });
-                    },
+                    onPressed: _startEndPressed,
                     child: Text(
                       widget.journeyModel.isStarted
                           ? 'Stop Journey'

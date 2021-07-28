@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:university_transportation_driver/modules/models/journey_model.dart';
 import 'package:university_transportation_driver/utils/services/journey/journey_service.dart';
 import 'package:university_transportation_driver/utils/services/journey/journey_service_web.dart';
+import 'package:university_transportation_driver/utils/services/trip/trip_service.dart';
+import 'package:university_transportation_driver/utils/services/trip/trip_service_web.dart';
 import 'package:university_transportation_driver/widgets/journey_basic_details.dart';
 import 'package:university_transportation_driver/widgets/journey_passengers_list.dart';
 import 'package:university_transportation_driver/widgets/journey_stations_list.dart';
@@ -20,6 +22,8 @@ class JourneyDetailsScreen extends StatefulWidget {
 
 class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
   final JourneyService _journeyService = new JourneyServiceWeb();
+  final TripService _tripService = new TripServiceWeb();
+
   JourneyModel _journey = JourneyModel(
     name: '',
     repeatDays: '1,2,3,4,5,6,7',
@@ -50,7 +54,10 @@ class _JourneyDetailsScreenState extends State<JourneyDetailsScreen> {
   }
 
   Future<void> _scanQR() async {
-    String cameraScanResult = await scanner.scan();
+    String qr = await scanner.scan();
+
+    var passenger = await _tripService.addPassenger(_journey.id, qr);
+    if (passenger != null) print('Passenger Added');
   }
 
   @override

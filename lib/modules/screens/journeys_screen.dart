@@ -29,7 +29,7 @@ class _JourneysScreenState extends State<JourneysScreen> {
 
     var journeys = await _journeyService.getJourneysByDriverIdAsync(userId);
     setState(() {
-      _journeys = journeys;
+      if (journeys != null) _journeys = journeys;
       _isLoading = false;
     });
   }
@@ -42,32 +42,38 @@ class _JourneysScreenState extends State<JourneysScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ListView.builder(
-          itemCount: _journeys.length,
-          itemBuilder: (BuildContext ctxt, int i) {
-            return Card(
-              child: ListTile(
-                leading: Icon(
-                  Icons.timeline_sharp,
-                  color: ThemeConstants.PrimaryColor,
-                  size: 45.0,
-                ),
-                title: Text(_journeys[i].name),
-                subtitle: Text(_journeys[i].startDate.split('T')[1]),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, RoutingConstants.JourneyDetailsScreenRoute,
-                      arguments: _journeys[i].id);
+    return _journeys.isEmpty
+        ? Center(
+            child: Text("No Data Found"),
+          )
+        : Stack(
+            children: [
+              ListView.builder(
+                itemCount: _journeys.length,
+                itemBuilder: (BuildContext ctxt, int i) {
+                  return Card(
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.timeline_sharp,
+                        color: _journeys[i].isStarted
+                            ? Colors.green
+                            : ThemeConstants.PrimaryColor,
+                        size: 45.0,
+                      ),
+                      title: Text(_journeys[i].name),
+                      subtitle: Text(_journeys[i].startDate.split('T')[1]),
+                      trailing: Icon(Icons.arrow_forward_ios),
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RoutingConstants.JourneyDetailsScreenRoute,
+                            arguments: _journeys[i].id);
+                      },
+                    ),
+                  );
                 },
               ),
-            );
-          },
-        ),
-        _isLoading ? Loader() : Stack()
-      ],
-    );
+              _isLoading ? Loader() : Stack()
+            ],
+          );
   }
 }
